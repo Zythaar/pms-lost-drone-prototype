@@ -34,6 +34,8 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4430426525023880}
+  - component: {fileID: 114999603101206952}
+  - component: {fileID: 50313918628441912}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -99,6 +101,26 @@ Transform:
   m_Father: {fileID: 4430426525023880}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50313918628441912
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1786697293248542}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!95 &95971843125846378
 Animator:
   serializedVersion: 3
@@ -116,6 +138,24 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114999603101206952
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1786697293248542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6218c98fd05eb2408bc1db19934903d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  tilt: 0
+  boundary:
+    xMin: -3.35
+    xMax: 3.33
+    yMin: -1.66
+    yMax: 1.54
 --- !u!212 &212307539645709278
 SpriteRenderer:
   m_ObjectHideFlags: 1
