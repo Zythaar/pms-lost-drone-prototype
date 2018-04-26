@@ -38,6 +38,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2315522953
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: StarCraft
+    uniqueID: 1977558073
+    locked: 0
+  - name: Alignment
+    uniqueID: 1159956863
+    locked: 0
+  - name: Animation
+    uniqueID: 4146349739
+    locked: 0
+  - name: Pickup
+    uniqueID: 4033787807
     locked: 0
