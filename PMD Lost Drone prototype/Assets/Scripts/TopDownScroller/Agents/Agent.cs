@@ -1,11 +1,11 @@
 ﻿using System;
-//using ActionGameFramework.Health;
+using ActionGameFramework.Health;
 using Core.Utilities;
-/*
-using TowerDefense.Affectors;
-using TowerDefense.Level;
-using TowerDefense.Nodes;
-*/
+
+//using TopDownScroller.Affectors;
+using TopDownScroller.Level;
+using TopDownScroller.Nodes;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -15,8 +15,8 @@ namespace TopDownScroller.Agents
 	/// An agent will follow a path of nodes
 	/// </summary>
 	//[RequireComponent(typeof(NavMeshAgent)), RequireComponent(typeof(AttackAffector))]
-	public abstract class Agent// : Targetable
-	{	/*
+	public abstract class Agent : Targetable
+	{	
 		/// <summary>
 		/// A means of keeping track of the agent along its path
 		/// </summary>
@@ -346,5 +346,5 @@ namespace TopDownScroller.Agents
 			}
 		}
 #endif
-*/	}
+	}
 }
