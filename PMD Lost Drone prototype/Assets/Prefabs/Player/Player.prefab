@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1786697293248542}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.181, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4655128185575092}
@@ -209,15 +209,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6218c98fd05eb2408bc1db19934903d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
+  speed: 3.39
   boundary:
-    xMin: 0
-    xMax: 0
-    yMin: 0
-    yMax: 0
+    xMin: -3.34
+    xMax: 3.34
+    yMin: -1.65
+    yMax: 1.7
   shot: {fileID: 1268306732756918, guid: a562ff3550f6eba46a264e7bd73911da, type: 2}
   shotSpawn: {fileID: 4863641436743888}
-  fireRate: 0
+  fireRate: 0.38
 --- !u!212 &212307539645709278
 SpriteRenderer:
   m_ObjectHideFlags: 1

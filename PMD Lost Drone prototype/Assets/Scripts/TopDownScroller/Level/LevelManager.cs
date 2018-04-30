@@ -3,7 +3,7 @@ using Core.Economy;
 using Core.Health;
 using Core.Utilities;
 using TopDownScroller.Economy;
-using TopDownScroller.StarCraft.Data;
+using TopDownScroller.Starcraft.Data;
 using UnityEngine;
 
 namespace TopDownScroller.Level
@@ -20,9 +20,9 @@ namespace TopDownScroller.Level
 		public LevelIntro intro;
 
 		/// <summary>
-		/// The tower library for this level
+		/// The starcrafft library for this level
 		/// </summary>
-		public TowerLibrary towerLibrary;
+		public StarcraftLibrary starcraftLibrary;
 
 		/// <summary>
 		/// The currency that the player starts with
@@ -35,15 +35,15 @@ namespace TopDownScroller.Level
 		public CurrencyGainer currencyGainer;
 
 		/// <summary>
-		/// Configuration for if the player gains currency even in pre-build phase
+		/// Configuration for if the player gains currency even in pre-upgrade phase
 		/// </summary>
-		[Header("Setting this will allow currency gain during the Intro and Pre-Build phase")]
+		[Header("Setting this will allow currency gain during the Intro and Pre-Upgrade phase")]
 		public bool alwaysGainCurrency;
 
 		/// <summary>
-		/// The home bases that the player must defend
+		/// The player starcraft that the player must defend
 		/// </summary>
-		//public PlayerHomeBase[] homeBases;
+		public PlayerController[] starcrafts;
 
 		public Collider[] environmentColliders;
 
@@ -68,27 +68,27 @@ namespace TopDownScroller.Level
 		public Currency currency { get; protected set; }
 
 		/// <summary>
-		/// Number of home bases left
+		/// Number of player lives left
 		/// </summary>
-		public int numberOfHomeBasesLeft { get; protected set; }
+		public int numberOfLivesLeft { get; protected set; }
 
 		/// <summary>
-		/// Starting number of home bases
+		/// Starting number of lives
 		/// </summary>
-		public int numberOfHomeBases { get; protected set; }
+		public int numberOfLives { get; protected set; }
 
-		/// <summary>
-		/// An accessor for the home bases
-		/// </summary>
-		//public PlayerHomeBase[] playerHomeBases
-		//{
-		//	get { return homeBases; }
-		//}
+        /// <summary>
+        /// An accessor for the starcrafts
+        /// </summary>
+        public PlayerController[] playerStarcrafts
+        {
+            get { return starcrafts; }
+        }
 
-		/// <summary>
-		/// If the game is over
-		/// </summary>
-		public bool isGameOver
+        /// <summary>
+        /// If the game is over
+        /// </summary>
+        public bool isGameOver
 		{
 			get { return (levelState == LevelState.Win) || (levelState == LevelState.Lose); }
 		}
@@ -99,7 +99,7 @@ namespace TopDownScroller.Level
 		public event Action levelCompleted;
 
 		/// <summary>
-		/// Fired when all of the home bases are destroyed
+		/// Fired when all of the player starcrafts are destroyed
 		/// </summary>
 		public event Action levelFailed;
 
@@ -114,9 +114,9 @@ namespace TopDownScroller.Level
 		public event Action<int> numberOfEnemiesChanged;
 
 		/// <summary>
-		/// Event for home base being destroyed
+		/// Event for player starcraft being destroyed
 		/// </summary>
-		public event Action homeBaseDestroyed;
+		public event Action playerStarcraftDestroyed;
 
 		/// <summary>
 		/// Increments the number of enemies. Called on Agent spawn
@@ -130,14 +130,14 @@ namespace TopDownScroller.Level
 		/// <summary>
 		/// Returns the sum of all HomeBases' health
 		/// </summary>
-		public float GetAllHomeBasesHealth()
+		public float GetAllStarcraftsHealth()
 		{
 			float health = 0.0f;
-			//foreach (PlayerHomeBase homebase in homeBases)
-			//{
-			//	health += homebase.configuration.currentHealth;
-			//}
-			return health;
+            foreach (PlayerController starcraft in starcrafts)
+            {
+                health += starcraft.configuration.currentHealth;
+            }
+            return health;
 		}
 
 		/// <summary>
@@ -160,9 +160,9 @@ namespace TopDownScroller.Level
 		}
 
 		/// <summary>
-		/// Completes building phase, setting state to spawn enemies
+		/// Completes upgrading phase, setting state to spawn enemies
 		/// </summary>
-		public virtual void BuildingCompleted()
+		public virtual void UpgradingCompleted()
 		{
 			ChangeLevelState(LevelState.SpawningEnemies);
 		}
@@ -195,14 +195,14 @@ namespace TopDownScroller.Level
 				IntroCompleted();
 			}
 
-			// Iterate through home bases and subscribe
-			//numberOfHomeBases = homeBases.Length;
-			//numberOfHomeBasesLeft = numberOfHomeBases;
-			//for (int i = 0; i < numberOfHomeBases; i++)
-			//{
-			//	homeBases[i].died += OnHomeBaseDestroyed;
-			//}
-		}
+            // Iterate through home bases and subscribe
+            numberOfLives = starcrafts.Length;
+            numberOfLivesLeft = numberOfLives;
+            for (int i = 0; i < numberOfLives; i++)
+            {
+                starcrafts[i].died += OnPlayerStarcraftDestroyed;
+            }
+        }
 
 		/// <summary>
 		/// Updates the currency gain controller
@@ -210,7 +210,7 @@ namespace TopDownScroller.Level
 		protected virtual void Update()
 		{
 			if (alwaysGainCurrency ||
-			    (!alwaysGainCurrency && levelState != LevelState.Building && levelState != LevelState.Intro))
+			    (!alwaysGainCurrency && levelState != LevelState.Upgrading && levelState != LevelState.Intro))
 			{
 				currencyGainer.Tick(Time.deltaTime);
 			}
@@ -231,19 +231,19 @@ namespace TopDownScroller.Level
 				intro.introCompleted -= IntroCompleted;
 			}
 
-			// Iterate through home bases and unsubscribe
-			//for (int i = 0; i < numberOfHomeBases; i++)
-			//{
-			//	homeBases[i].died -= OnHomeBaseDestroyed;
-			//}
-		}
+            // Iterate through home bases and unsubscribe
+            for (int i = 0; i < numberOfLives; i++)
+            {
+                starcrafts[i].died -= OnPlayerStarcraftDestroyed;
+            }
+        }
 
 		/// <summary>
 		/// Fired when Intro is completed or immediately, if no intro is specified
 		/// </summary>
 		protected virtual void IntroCompleted()
 		{
-			ChangeLevelState(LevelState.Building);
+			ChangeLevelState(LevelState.Upgrading);
 		}
 
 		/// <summary>
@@ -297,19 +297,19 @@ namespace TopDownScroller.Level
 		/// <summary>
 		/// Fired when a home base is destroyed
 		/// </summary>
-		protected virtual void OnHomeBaseDestroyed(DamageableBehaviour homeBase)
+		protected virtual void OnPlayerStarcraftDestroyed(DamageableBehaviour starcraft)
 		{
 			// Decrement the number of home bases
-			numberOfHomeBasesLeft--;
+			numberOfLivesLeft--;
 
 			// Call the destroyed event
-			if (homeBaseDestroyed != null)
+			if (playerStarcraftDestroyed != null)
 			{
-				homeBaseDestroyed();
+				playerStarcraftDestroyed();
 			}
 
 			// If there are no home bases left and the level is not over then set the level to lost
-			if ((numberOfHomeBasesLeft == 0) && !isGameOver)
+			if ((numberOfLivesLeft == 0) && !isGameOver)
 			{
 				ChangeLevelState(LevelState.Lose);
 			}

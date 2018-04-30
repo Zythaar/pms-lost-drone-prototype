@@ -6,12 +6,12 @@ using TopDownScroller.Level;
 //using TopDownScroller.UI.HUD;
 using UnityEngine;
 
-namespace TopDownScroller.StarCraft
+namespace TopDownScroller.Starcraft
 {
 	/// <summary>
 	/// Common functionality for all types of towers
 	/// </summary>
-	public class StarCraft : Targetable
+	public class Starcraft : Targetable
 	{
 		/// <summary>
 		/// The tower levels associated with this tower
@@ -150,7 +150,7 @@ namespace TopDownScroller.StarCraft
 		public int GetSellLevel(int level)
 		{
 			// sell for full price if waves haven't started yet
-			if (LevelManager.instance.levelState == LevelState.Building)
+			if (LevelManager.instance.levelState == LevelState.Upgrading)
 			{
 				int cost = 0;
 				for (int i = 0; i <= level; i++)

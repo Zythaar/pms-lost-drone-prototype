@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Core.Health;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,7 +10,7 @@ public class Boundary
 }
 
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : DamageableBehaviour {
 
     public float speed;
     public Boundary boundary;

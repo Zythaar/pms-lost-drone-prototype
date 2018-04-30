@@ -3,30 +3,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace TopDownScroller.StarCraft.Data
+namespace TopDownScroller.Starcraft.Data
 {
 	/// <summary>
-	/// The asset which holds the list of different towers
+	/// The asset which holds the list of different starcrafts
 	/// </summary>
-	[CreateAssetMenu(fileName = "TowerLibrary.asset", menuName = "TowerDefense/Tower Library", order = 1)]
-	public class TowerLibrary : ScriptableObject, IList<StarCraft>, IDictionary<string, StarCraft>
+	[CreateAssetMenu(fileName = "StarcraftLibrary.asset", menuName = "TopDownScroller/Starcraft Library", order = 1)]
+	public class StarcraftLibrary : ScriptableObject, IList<Starcraft>, IDictionary<string, Starcraft>
 	{
-		/// <summary>
-		/// The list of all the towers
-		/// </summary>
-		public List<StarCraft> configurations;
+        /// <summary>
+        /// The list of all the starcrafts
+        /// </summary>
+        public List<Starcraft> configurations;
 
-		/// <summary>
-		/// The internal reference to the dictionary made from the list of towers
-		/// with the name of tower as the key
-		/// </summary>
-		Dictionary<string, StarCraft> m_ConfigurationDictionary;
+        /// <summary>
+        /// The internal reference to the dictionary made from the list of starcrafts
+        /// with the name of starcrafts as the key
+        /// </summary>
+        Dictionary<string, Starcraft> m_ConfigurationDictionary;
 
-		/// <summary>
-		/// The accessor to the towers by index
-		/// </summary>
-		/// <param name="index"></param>
-		public StarCraft this[int index]
+        /// <summary>
+        /// The accessor to the starcrafts by index
+        /// </summary>
+        /// <param name="index"></param>
+        public Starcraft this[int index]
 		{
 			get { return configurations[index]; }
 		}
@@ -52,7 +52,7 @@ namespace TopDownScroller.StarCraft.Data
 			return m_ConfigurationDictionary.ContainsKey(key);
 		}
 
-		public void Add(string key, StarCraft value)
+		public void Add(string key, Starcraft value)
 		{
 			m_ConfigurationDictionary.Add(key, value);
 		}
@@ -62,12 +62,12 @@ namespace TopDownScroller.StarCraft.Data
 			return m_ConfigurationDictionary.Remove(key);
 		}
 
-		public bool TryGetValue(string key, out StarCraft value)
+		public bool TryGetValue(string key, out Starcraft value)
 		{
 			return m_ConfigurationDictionary.TryGetValue(key, out value);
 		}
 
-		StarCraft IDictionary<string, StarCraft>.this[string key]
+		Starcraft IDictionary<string, Starcraft>.this[string key]
 		{
 			get { return m_ConfigurationDictionary[key]; }
 			set { m_ConfigurationDictionary[key] = value; }
@@ -75,51 +75,51 @@ namespace TopDownScroller.StarCraft.Data
 
 		public ICollection<string> Keys
 		{
-			get { return ((IDictionary<string, StarCraft>) m_ConfigurationDictionary).Keys; }
+			get { return ((IDictionary<string, Starcraft>) m_ConfigurationDictionary).Keys; }
 		}
 
-		ICollection<StarCraft> IDictionary<string, StarCraft>.Values
+		ICollection<Starcraft> IDictionary<string, Starcraft>.Values
 		{
 			get { return m_ConfigurationDictionary.Values; }
 		}
 
-		IEnumerator<KeyValuePair<string, StarCraft>> IEnumerable<KeyValuePair<string, StarCraft>>.GetEnumerator()
+		IEnumerator<KeyValuePair<string, Starcraft>> IEnumerable<KeyValuePair<string, Starcraft>>.GetEnumerator()
 		{
 			return m_ConfigurationDictionary.GetEnumerator();
 		}
 
-		public void Add(KeyValuePair<string, StarCraft> item)
+		public void Add(KeyValuePair<string, Starcraft> item)
 		{
 			m_ConfigurationDictionary.Add(item.Key, item.Value);
 		}
 
-		public bool Remove(KeyValuePair<string, StarCraft> item)
+		public bool Remove(KeyValuePair<string, Starcraft> item)
 		{
 			return m_ConfigurationDictionary.Remove(item.Key);
 		}
 
-		public bool Contains(KeyValuePair<string, StarCraft> item)
+		public bool Contains(KeyValuePair<string, Starcraft> item)
 		{
 			return m_ConfigurationDictionary.Contains(item);
 		}
 
-		public void CopyTo(KeyValuePair<string, StarCraft>[] array, int arrayIndex)
+		public void CopyTo(KeyValuePair<string, Starcraft>[] array, int arrayIndex)
 		{
 			int count = array.Length;
 			for (int i = arrayIndex; i < count; i++)
 			{
-				StarCraft config = configurations[i - arrayIndex];
-				KeyValuePair<string, StarCraft> current = new KeyValuePair<string, StarCraft>(config.towerName, config);
+				Starcraft config = configurations[i - arrayIndex];
+				KeyValuePair<string, Starcraft> current = new KeyValuePair<string, Starcraft>(config.towerName, config);
 				array[i] = current;
 			}
 		}
 
-		public int IndexOf(StarCraft item)
+		public int IndexOf(Starcraft item)
 		{
 			return configurations.IndexOf(item);
 		}
 
-		public void Insert(int index, StarCraft item)
+		public void Insert(int index, Starcraft item)
 		{
 			configurations.Insert(index, item);
 		}
@@ -129,13 +129,13 @@ namespace TopDownScroller.StarCraft.Data
 			configurations.RemoveAt(index);
 		}
 
-		StarCraft IList<StarCraft>.this[int index]
+		Starcraft IList<Starcraft>.this[int index]
 		{
 			get { return configurations[index]; }
 			set { configurations[index] = value; }
 		}
 
-		public IEnumerator<StarCraft> GetEnumerator()
+		public IEnumerator<Starcraft> GetEnumerator()
 		{
 			return configurations.GetEnumerator();
 		}
@@ -145,7 +145,7 @@ namespace TopDownScroller.StarCraft.Data
 			return ((IEnumerable) configurations).GetEnumerator();
 		}
 
-		public void Add(StarCraft item)
+		public void Add(Starcraft item)
 		{
 			configurations.Add(item);
 		}
@@ -155,17 +155,17 @@ namespace TopDownScroller.StarCraft.Data
 			configurations.Clear();
 		}
 
-		public bool Contains(StarCraft item)
+		public bool Contains(Starcraft item)
 		{
 			return configurations.Contains(item);
 		}
 
-		public void CopyTo(StarCraft[] array, int arrayIndex)
+		public void CopyTo(Starcraft[] array, int arrayIndex)
 		{
 			configurations.CopyTo(array, arrayIndex);
 		}
 
-		public bool Remove(StarCraft item)
+		public bool Remove(Starcraft item)
 		{
 			return configurations.Remove(item);
 		}
@@ -177,7 +177,7 @@ namespace TopDownScroller.StarCraft.Data
 
 		public bool IsReadOnly
 		{
-			get { return ((ICollection<StarCraft>) configurations).IsReadOnly; }
+			get { return ((ICollection<Starcraft>) configurations).IsReadOnly; }
 		}
 	}
 }

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 
-namespace TopDownScroller.StarCraft.Data
+namespace TopDownScroller.Starcraft.Data
 {
 	/// <summary>
 	/// Data container for settings per tower level
 	/// </summary>
 	[CreateAssetMenu(fileName = "TowerData.asset", menuName = "TowerDefense/Tower Configuration", order = 1)]
-	public class TowerLevelData : ScriptableObject
+	public class StarcraftLevelData : ScriptableObject
 	{
 		/// <summary>
 		/// A description of the tower for displaying on the UI

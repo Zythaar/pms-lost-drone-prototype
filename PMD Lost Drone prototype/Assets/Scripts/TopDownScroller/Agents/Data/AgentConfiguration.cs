@@ -2,7 +2,7 @@
 
 namespace TopDownScroller.Agents.Data
 {
-	[CreateAssetMenu(fileName = "AgentConfiguration.asset", menuName = "TowerDefense/Agent Configuration", order = 1)]
+	[CreateAssetMenu(fileName = "AgentConfiguration.asset", menuName = "TopDownScroller/Agent Configuration", order = 1)]
 	public class AgentConfiguration : ScriptableObject
 	{
 		/// <summary>

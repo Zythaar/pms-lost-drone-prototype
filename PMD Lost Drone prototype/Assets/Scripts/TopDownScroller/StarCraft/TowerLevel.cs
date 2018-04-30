@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Core.Health;
 //using TopDownScroller.Affectors;
-using TopDownScroller.StarCraft.Data;
+using TopDownScroller.Starcraft.Data;
 //using TopDownScroller.UI.HUD;
 using UnityEngine;
 
-namespace TopDownScroller.StarCraft
+namespace TopDownScroller.Starcraft
 {
 	/// <summary>
 	/// An individual level of a tower
@@ -26,12 +26,12 @@ namespace TopDownScroller.StarCraft
 		/// <summary>
 		/// Reference to scriptable object with level data on it
 		/// </summary>
-		public  TowerLevelData levelData;
+		public  StarcraftLevelData levelData;
 
 		/// <summary>
 		/// The parent tower controller of this tower
 		/// </summary>
-		protected StarCraft m_ParentTower;
+		protected Starcraft m_ParentTower;
 
 		/// <summary>
 		/// The list of effects attached to the tower
@@ -109,7 +109,7 @@ namespace TopDownScroller.StarCraft
 		/// <summary>
 		/// Initialises the Effects attached to this object
 		/// </summary>
-		public virtual void Initialize(StarCraft tower, LayerMask enemyMask, IAlignmentProvider alignment)
+		public virtual void Initialize(Starcraft tower, LayerMask enemyMask, IAlignmentProvider alignment)
 		{
 			mask = enemyMask;
 			
