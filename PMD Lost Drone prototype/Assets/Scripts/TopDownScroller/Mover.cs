@@ -9,6 +9,10 @@ public class Mover : MonoBehaviour {
     public float speed;
     public MoveDirection moveDirection;
 
+    public Vector3 velocity;
+
+    public bool isStopped { get; set; }
+
 	// Use this for initialization
 	private void Start () {
         Rigidbody2D rb = GetComponent<Rigidbody2D>();

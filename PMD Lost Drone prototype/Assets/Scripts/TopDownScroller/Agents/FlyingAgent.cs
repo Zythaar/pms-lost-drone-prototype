@@ -23,18 +23,18 @@ namespace TopDownScroller.Agents
 		/// </summary>
 		protected override void OnPartialPathUpdate()
 		{
-			if (!isPathBlocked)
-			{
-				state = State.OnCompletePath;
-				return;
-			}
-			if (!isAtDestination)
-			{
-				return;
-			}
-			m_NavMeshAgent.enabled = false;
-			m_CurrentWaitTime = m_WaitTime;
-			state = State.PushingThrough;
+			//if (!isPathBlocked)
+			//{
+			//	state = State.OnCompletePath;
+			//	return;
+			//}
+			//if (!isAtDestination)
+			//{
+			//	return;
+			//}
+			//m_NavMeshAgent.enabled = false;
+			//m_CurrentWaitTime = m_WaitTime;
+			//state = State.PushingThrough;
 		}
 		
 		/// <summary>
@@ -83,7 +83,7 @@ namespace TopDownScroller.Agents
 				// If the time elapses, and there is a NavMesh under it, resume agent movement as normal
 				m_NavMeshAgent.enabled = true;
 				NavigateTo(m_Destination);
-				state = isPathBlocked ? State.OnPartialPath : State.OnCompletePath;
+				state = /*isPathBlocked */false? State.OnPartialPath : State.OnCompletePath;
 			}
 		}
 	}

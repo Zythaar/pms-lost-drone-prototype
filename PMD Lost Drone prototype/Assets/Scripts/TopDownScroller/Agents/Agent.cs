@@ -66,7 +66,7 @@ namespace TopDownScroller.Agents
 		/// <summary>
 		/// The NavMeshAgent component attached to this
 		/// </summary>
-		protected NavMeshAgent m_NavMeshAgent;
+		protected Mover m_NavMeshAgent;
 
 		/// <summary>
 		/// The Current node that the agent must navigate to
@@ -99,7 +99,7 @@ namespace TopDownScroller.Agents
 		/// <summary>
 		/// Accessor to <see cref="m_NavMeshAgent"/>
 		/// </summary>
-		public NavMeshAgent navMeshNavMeshAgent
+		public Mover navMeshNavMeshAgent
 		{
 			get { return m_NavMeshAgent; }
 			set { m_NavMeshAgent = value; }
@@ -110,7 +110,7 @@ namespace TopDownScroller.Agents
 		/// </summary>
 		public int navMeshMask
 		{
-			get { return m_NavMeshAgent.areaMask; }
+			get { return 0/*m_NavMeshAgent.areaMask*/; }
 		}
 
 		/// <summary>
@@ -118,24 +118,6 @@ namespace TopDownScroller.Agents
 		/// </summary>
 		public float originalMovementSpeed { get; private set; }
 
-		/// <summary>
-		/// Checks if the path is blocked
-		/// </summary>
-		/// <value>
-		/// The status of the agent's path
-		/// </value>
-		protected virtual bool isPathBlocked
-		{
-			get { return m_NavMeshAgent.pathStatus == NavMeshPathStatus.PathPartial; }
-		}
-
-		/// <summary>
-		/// Is the Agent close enough to its destination?
-		/// </summary>
-		protected virtual bool isAtDestination
-		{
-			get { return navMeshNavMeshAgent.remainingDistance <= navMeshNavMeshAgent.stoppingDistance; }
-		}
 
 		/// <summary>
 		/// Sets the node to navigate to
@@ -171,7 +153,7 @@ namespace TopDownScroller.Agents
 			ResetPositionData();
 			LazyLoad();
 			configuration.SetHealth(configuration.maxHealth);
-			state = isPathBlocked ? State.OnPartialPath : State.OnCompletePath;
+			state = /*isPathBlocked*/false ? State.OnPartialPath : State.OnCompletePath;
 
 			m_NavMeshAgent.enabled = true;
 			m_NavMeshAgent.isStopped = false;
@@ -254,25 +236,25 @@ namespace TopDownScroller.Agents
 			PathUpdate();
 			
 			// If the path becomes invalid, repath the agent to the destination
-			bool validStalePath = m_NavMeshAgent.isOnNavMesh && m_NavMeshAgent.enabled &&
-			                      (!m_NavMeshAgent.hasPath && !m_NavMeshAgent.pathPending);
-			if (validStalePath)
-			{
-				// Compare against squared stopping distance on agent.
-				// We intentionally do not pre-square this value so that it can be changed at runtime dynamically
-				float squareStoppingDistance = m_NavMeshAgent.stoppingDistance * m_NavMeshAgent.stoppingDistance;
-				if (Vector3.SqrMagnitude(m_Destination - transform.position) < squareStoppingDistance &&
-				    m_CurrentNode.GetNextNode() != null)
-				{
-					// Proceed if we're at our destination
-					GetNextNode(m_CurrentNode);
-				}
-				else
-				{
-					// Otherwise try repath
-					m_NavMeshAgent.SetDestination(m_Destination);
-				}
-			}
+			//bool validStalePath = m_NavMeshAgent.isOnNavMesh && m_NavMeshAgent.enabled &&
+			//                      (!m_NavMeshAgent.hasPath && !m_NavMeshAgent.pathPending);
+			//if (validStalePath)
+			//{
+			//	// Compare against squared stopping distance on agent.
+			//	// We intentionally do not pre-square this value so that it can be changed at runtime dynamically
+			//	float squareStoppingDistance = m_NavMeshAgent.stoppingDistance * m_NavMeshAgent.stoppingDistance;
+			//	if (Vector3.SqrMagnitude(m_Destination - transform.position) < squareStoppingDistance &&
+			//	    m_CurrentNode.GetNextNode() != null)
+			//	{
+			//		// Proceed if we're at our destination
+			//		GetNextNode(m_CurrentNode);
+			//	}
+			//	else
+			//	{
+			//		// Otherwise try repath
+			//		m_NavMeshAgent.SetDestination(m_Destination);
+			//	}
+			//}
 		}
 
 		/// <summary>
@@ -282,10 +264,10 @@ namespace TopDownScroller.Agents
 		protected virtual void NavigateTo(Vector3 nextPoint)
 		{
 			LazyLoad();
-			if (m_NavMeshAgent.isOnNavMesh)
-			{
-				m_NavMeshAgent.SetDestination(nextPoint);
-			}
+			//if (m_NavMeshAgent.isOnNavMesh)
+			//{
+			//	m_NavMeshAgent.SetDestination(nextPoint);
+			//}
 		}
 
 		/// <summary>
@@ -295,7 +277,7 @@ namespace TopDownScroller.Agents
 		{
 			if (m_NavMeshAgent == null)
 			{
-				m_NavMeshAgent = GetComponent<NavMeshAgent>();
+				m_NavMeshAgent = GetComponent<Mover>();
 				originalMovementSpeed = m_NavMeshAgent.speed;
 			}
 			if (m_LevelManager == null)
@@ -309,11 +291,11 @@ namespace TopDownScroller.Agents
 		/// </summary>
 		protected virtual void OnCompletePathUpdate()
 		{
-			if (isPathBlocked)
-			{
-				state = State.OnPartialPath;
-			}
-		}
+            //if (isPathBlocked)
+            //{
+            //    state = State.OnPartialPath;
+            //}
+        }
 
 		/// <summary>
 		/// Peforms the relevant path update
@@ -334,15 +316,15 @@ namespace TopDownScroller.Agents
 		{
 			if (m_NavMeshAgent != null)
 			{
-				Vector3[] pathPoints = m_NavMeshAgent.path.corners;
-				int count = pathPoints.Length;
-				for (int i = 0; i < count - 1; i++)
-				{
-					Vector3 from = pathPoints[i];
-					Vector3 to = pathPoints[i + 1];
-					Gizmos.DrawLine(from, to);
-				}
-				Gizmos.DrawWireSphere(m_NavMeshAgent.destination, 0.2f);
+				//Vector3[] pathPoints = m_NavMeshAgent.path.corners;
+				//int count = pathPoints.Length;
+				//for (int i = 0; i < count - 1; i++)
+				//{
+				//	Vector3 from = pathPoints[i];
+				//	Vector3 to = pathPoints[i + 1];
+				//	Gizmos.DrawLine(from, to);
+				//}
+				//Gizmos.DrawWireSphere(m_NavMeshAgent.destination, 0.2f);
 			}
 		}
 #endif
